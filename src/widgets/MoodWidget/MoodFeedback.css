@@ -1,0 +1,67 @@
+.om-mood-feedback {
+  padding: clamp(10px, 2vw, 14px) clamp(14px, 2.5vw, 18px);
+  border-radius: var(--om-radius-xl);
+  border: 1px solid var(--om-border);
+  background-color: var(--om-bg-app);
+  color: var(--om-text-main);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: opacity var(--om-transition-fast), transform var(--om-transition-fast), background-color var(--om-transition-normal), border-color var(--om-transition-normal);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.om-mood-feedback.is-animating {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.om-mood-feedback.is-empty {
+  background-color: rgba(140, 134, 128, 0.04);
+  border-color: transparent;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.om-mood-feedback-placeholder {
+  font-size: clamp(0.75rem, 1.5vw, 0.82rem);
+  color: var(--om-text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+.om-mood-feedback-avatar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08));
+}
+
+.om-mood-feedback-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.om-mood-feedback-badge {
+  font-size: clamp(0.66rem, 1.2vw, 0.72rem);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--om-text-muted);
+}
+
+.om-mood-feedback-label {
+  font-weight: 700;
+  color: var(--om-text-main);
+}
+
+.om-mood-feedback-quote {
+  font-family: var(--om-font-serif);
+  font-size: clamp(0.85rem, 1.8vw, 0.92rem);
+  line-height: 1.35;
+  font-weight: 400;
+  color: var(--om-text-main);
+}

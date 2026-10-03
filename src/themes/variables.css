@@ -1,0 +1,109 @@
+/* OrganiMind Design System Tokens */
+
+:root {
+  /* Default Theme: Warm Paper Cream (Soft, Light, Serene) */
+  --om-bg-app: #FBF9F5;
+  --om-bg-card: #FFFFFF;
+  --om-text-main: #3A3735;
+  --om-text-muted: #8C8680;
+  --om-border: #F0ECE1;
+  --om-border-hover: #E2DCD0;
+  --om-accent: #6E6862;
+  --om-shadow: 0 4px 16px -2px rgba(90, 85, 80, 0.04), 0 2px 6px -1px rgba(90, 85, 80, 0.02);
+
+  /* Radius & Spacing */
+  --om-radius-xl: 18px;
+  --om-radius-lg: 14px;
+  --om-radius-md: 10px;
+  --om-radius-sm: 6px;
+
+  --om-space-xs: 4px;
+  --om-space-sm: 8px;
+  --om-space-md: 16px;
+  --om-space-lg: 24px;
+
+  /* Typography */
+  --om-font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --om-font-serif: 'Lora', Georgia, serif;
+
+  /* Transitions & Animation Timing */
+  --om-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --om-transition-fast: 150ms var(--om-ease-out);
+  --om-transition-normal: 250ms var(--om-ease-out);
+  --om-transition-slow: 400ms var(--om-ease-out);
+
+  /* Soft Pastel Mood Palette */
+  --om-mood-great-accent: #2D6A4F;
+  --om-mood-great-bg: #F0F7F3;
+  --om-mood-great-border: #D3E8DC;
+
+  --om-mood-good-accent: #9A7228;
+  --om-mood-good-bg: #FDF7EE;
+  --om-mood-good-border: #F3E6D0;
+
+  --om-mood-okay-accent: #4A6B82;
+  --om-mood-okay-bg: #F2F6F9;
+  --om-mood-okay-border: #D6E3EC;
+
+  --om-mood-low-accent: #6E5B80;
+  --om-mood-low-bg: #F6F2F8;
+  --om-mood-low-border: #E4DAEC;
+
+  --om-mood-stressed-accent: #9C524B;
+  --om-mood-stressed-bg: #FAF1F0;
+  --om-mood-stressed-border: #F2D8D5;
+}
+
+/* Optional Theme Override: Dark (Only when explicitly specified via ?theme=dark) */
+[data-theme="dark"] {
+  --om-bg-app: #181716;
+  --om-bg-card: #22201F;
+  --om-text-main: #ECE9E3;
+  --om-text-muted: #A39E97;
+  --om-border: #33302D;
+  --om-border-hover: #47433F;
+  --om-accent: #B3ADA5;
+  --om-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+
+  --om-mood-great-accent: #6AC997;
+  --om-mood-great-bg: #1B2E24;
+  --om-mood-great-border: #2B4738;
+
+  --om-mood-good-accent: #E8C16B;
+  --om-mood-good-bg: #302616;
+  --om-mood-good-border: #4A3B23;
+
+  --om-mood-okay-accent: #8EAFCA;
+  --om-mood-okay-bg: #1D2A36;
+  --om-mood-okay-border: #2C3E50;
+
+  --om-mood-low-accent: #BBA2D4;
+  --om-mood-low-bg: #292033;
+  --om-mood-low-border: #40324F;
+
+  --om-mood-stressed-accent: #E58C84;
+  --om-mood-stressed-bg: #331F1D;
+  --om-mood-stressed-border: #52322E;
+}
+
+/* Theme: Lavender */
+[data-theme="lavender"] {
+  --om-bg-app: #F8F6FC;
+  --om-bg-card: #FFFFFF;
+  --om-text-main: #2F2A38;
+  --om-text-muted: #857D94;
+  --om-border: #EDE7F5;
+  --om-border-hover: #DDD3EA;
+  --om-shadow: 0 4px 16px -2px rgba(47, 42, 56, 0.04);
+}
+
+/* Theme: Sage */
+[data-theme="sage"] {
+  --om-bg-app: #F5F8F5;
+  --om-bg-card: #FFFFFF;
+  --om-text-main: #222C23;
+  --om-text-muted: #758577;
+  --om-border: #E2ECE3;
+  --om-border-hover: #CBDCCB;
+  --om-shadow: 0 4px 16px -2px rgba(34, 44, 35, 0.04);
+}

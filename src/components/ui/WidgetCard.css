@@ -1,0 +1,27 @@
+.om-widget-card {
+  width: 100%;
+  max-width: 440px;
+  background-color: var(--om-bg-card);
+  border: 1px solid var(--om-border);
+  border-radius: var(--om-radius-xl);
+  box-shadow: var(--om-shadow);
+  padding: clamp(16px, 3.5vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2.5vw, 18px);
+  transition: border-color var(--om-transition-normal), box-shadow var(--om-transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top highlight line for depth without excessive gradients */
+.om-widget-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(120, 117, 113, 0.15), transparent);
+  pointer-events: none;
+}

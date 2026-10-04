@@ -1,9 +1,10 @@
 import type { ThemeId, WidgetQueryParams, CustomThemeColors } from '../types/widget';
+import { parseUrlConfig } from './urlConfig';
 
 export const DEFAULT_COLORS: CustomThemeColors = {
-  bgApp: '#FFFFFF',
+  bgApp: '#FBF9F5',
   bgCard: '#FFFFFF',
-  textMain: '#37352F',
+  textMain: '#3A3735',
 };
 
 export interface NotionPreset {
@@ -12,7 +13,7 @@ export interface NotionPreset {
 }
 
 export const NOTION_LIGHT_PRESETS: NotionPreset[] = [
-  { name: 'Default', colors: { bgApp: '#FFFFFF', bgCard: '#FFFFFF', textMain: '#37352F' } },
+  { name: 'Default', colors: { bgApp: '#FBF9F5', bgCard: '#FFFFFF', textMain: '#3A3735' } },
   { name: 'Gray', colors: { bgApp: '#EBECED', bgCard: '#FFFFFF', textMain: '#9B9A97' } },
   { name: 'Brown', colors: { bgApp: '#E9E5E3', bgCard: '#FFFFFF', textMain: '#64473A' } },
   { name: 'Orange', colors: { bgApp: '#FAEBDD', bgCard: '#FFFFFF', textMain: '#D9730D' } },
@@ -25,37 +26,32 @@ export const NOTION_LIGHT_PRESETS: NotionPreset[] = [
 ];
 
 export const NOTION_DARK_PRESETS: NotionPreset[] = [
-  { name: 'Default Dark', colors: { bgApp: '#2F3437', bgCard: '#3F4447', textMain: '#FFFFFF' } },
-  { name: 'Dark Gray', colors: { bgApp: '#454B4E', bgCard: '#2F3437', textMain: '#979A9B' } },
-  { name: 'Dark Brown', colors: { bgApp: '#434040', bgCard: '#2F3437', textMain: '#937264' } },
-  { name: 'Dark Orange', colors: { bgApp: '#594A3A', bgCard: '#2F3437', textMain: '#FFA344' } },
-  { name: 'Dark Yellow', colors: { bgApp: '#59563B', bgCard: '#2F3437', textMain: '#FFDC49' } },
-  { name: 'Dark Green', colors: { bgApp: '#354C4B', bgCard: '#2F3437', textMain: '#4DAB9A' } },
-  { name: 'Dark Blue', colors: { bgApp: '#364954', bgCard: '#2F3437', textMain: '#529CCA' } },
-  { name: 'Dark Purple', colors: { bgApp: '#443F57', bgCard: '#2F3437', textMain: '#9A6DD7' } },
-  { name: 'Dark Pink', colors: { bgApp: '#533B4C', bgCard: '#2F3437', textMain: '#E255A1' } },
-  { name: 'Dark Red', colors: { bgApp: '#594141', bgCard: '#2F3437', textMain: '#FF7369' } },
+  { name: 'Dark', colors: { bgApp: '#2F3437', bgCard: '#3F4447', textMain: '#FFFFFF' } },
+  { name: 'Gray', colors: { bgApp: '#454B4E', bgCard: '#2F3437', textMain: '#979A9B' } },
+  { name: 'Brown', colors: { bgApp: '#434040', bgCard: '#2F3437', textMain: '#937264' } },
+  { name: 'Orange', colors: { bgApp: '#594A3A', bgCard: '#2F3437', textMain: '#FFA344' } },
+  { name: 'Yellow', colors: { bgApp: '#59563B', bgCard: '#2F3437', textMain: '#FFDC49' } },
+  { name: 'Green', colors: { bgApp: '#354C4B', bgCard: '#2F3437', textMain: '#4DAB9A' } },
+  { name: 'Blue', colors: { bgApp: '#364954', bgCard: '#2F3437', textMain: '#529CCA' } },
+  { name: 'Purple', colors: { bgApp: '#443F57', bgCard: '#2F3437', textMain: '#9A6DD7' } },
+  { name: 'Pink', colors: { bgApp: '#533B4C', bgCard: '#2F3437', textMain: '#E255A1' } },
+  { name: 'Red', colors: { bgApp: '#594141', bgCard: '#2F3437', textMain: '#FF7369' } },
 ];
 
 export const parseQueryParams = (): WidgetQueryParams => {
-  const params = new URLSearchParams(window.location.search);
-  const theme = params.get('theme') as ThemeId | null;
-  const title = params.get('title') || undefined;
-  const accent = params.get('accent') || undefined;
-  const bgApp = params.get('bgApp') || params.get('bg') || undefined;
-  const bgCard = params.get('bgCard') || params.get('card') || undefined;
-  const textMain = params.get('textMain') || params.get('text') || undefined;
-
-  const validThemes: ThemeId[] = ['cream', 'dark', 'lavender', 'sage'];
-  const sanitizedTheme = theme && validThemes.includes(theme) ? theme : undefined;
-
+  const config = parseUrlConfig();
   return {
-    theme: sanitizedTheme,
-    title,
-    accent,
-    bgApp: bgApp ? `#${bgApp.replace('#', '')}` : undefined,
-    bgCard: bgCard ? `#${bgCard.replace('#', '')}` : undefined,
-    textMain: textMain ? `#${textMain.replace('#', '')}` : undefined,
+    theme: config.theme,
+    title: config.title,
+    accent: config.accent,
+    bg: config.bg,
+    card: config.card,
+    text: config.text,
+    style: config.style,
+    layout: config.layout,
+    bgApp: config.bg,
+    bgCard: config.card,
+    textMain: config.text,
   };
 };
 

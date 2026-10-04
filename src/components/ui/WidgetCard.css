@@ -25,3 +25,20 @@
   background: linear-gradient(90deg, transparent, rgba(120, 117, 113, 0.15), transparent);
   pointer-events: none;
 }
+
+/* Layout Variants: centered, compact, wide */
+[data-layout="compact"] .om-widget-card {
+  max-width: 350px;
+  padding: clamp(12px, 2.5vw, 16px);
+  gap: clamp(10px, 2vw, 14px);
+}
+
+[data-layout="centered"] .om-widget-card {
+  max-width: 440px;
+}
+
+[data-layout="wide"] .om-widget-card {
+  max-width: 580px;
+  padding: clamp(20px, 4vw, 28px);
+}
+

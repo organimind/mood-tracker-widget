@@ -107,3 +107,28 @@
   --om-border-hover: #CBDCCB;
   --om-shadow: 0 4px 16px -2px rgba(34, 44, 35, 0.04);
 }
+
+/* Style Variants: minimal, organic, zen, editorial */
+[data-style="minimal"] {
+  --om-radius-xl: 10px;
+  --om-radius-lg: 8px;
+  --om-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.04);
+}
+
+[data-style="organic"] {
+  --om-radius-xl: 18px;
+  --om-radius-lg: 14px;
+}
+
+[data-style="zen"] {
+  --om-radius-xl: 24px;
+  --om-radius-lg: 18px;
+  --om-shadow: 0 8px 24px -2px rgba(0, 0, 0, 0.03);
+}
+
+[data-style="editorial"] {
+  --om-radius-xl: 14px;
+  --om-radius-lg: 10px;
+  --om-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+

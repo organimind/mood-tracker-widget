@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { WidgetCard } from '../../components/ui/WidgetCard';
 import type { MoodId } from '../../types/mood';
-import type { CustomThemeColors } from '../../types/widget';
+import type { CustomThemeColors, MoodWidgetConfig, ThemePresetId } from '../../types/widget';
 import { getStoredMoodState, saveMoodState, getStoredCustomColors, saveStoredCustomColors } from '../../utils/storage';
-import { parseQueryParams, applyWidgetTheme, applyCustomThemeColors, DEFAULT_COLORS } from '../../utils/themeUtils';
+import { parseUrlConfig, applyWidgetConfig, updateUrlParams, DEFAULT_CONFIG } from '../../utils/urlConfig';
+import { applyCustomThemeColors } from '../../utils/themeUtils';
 import { MOOD_OPTIONS } from './moodConfig';
 import { MoodSelector } from './MoodSelector';
 import { MoodFeedback } from './MoodFeedback';
@@ -15,7 +16,12 @@ export const MoodWidget: React.FC = () => {
   const [subtitle, setSubtitle] = useState<string>('In this moment,');
   const [title, setTitle] = useState<string>('how do you feel?');
   const [showCustomizer, setShowCustomizer] = useState<boolean>(false);
-  const [colors, setColors] = useState<CustomThemeColors>(DEFAULT_COLORS);
+  const [widgetConfig, setWidgetConfig] = useState<MoodWidgetConfig>(DEFAULT_CONFIG);
+  const [colors, setColors] = useState<CustomThemeColors>({
+    bgApp: '#FBF9F5',
+    bgCard: '#FFFFFF',
+    textMain: '#3A3735',
+  });
 
   useEffect(() => {
     // Read persisted mood state on load
@@ -24,28 +30,44 @@ export const MoodWidget: React.FC = () => {
       setSelectedMood(savedState.selectedMood);
     }
 
-    // Read saved custom colors from storage
-    const savedColors = getStoredCustomColors();
-    
-    // Read URL query parameters for customization
-    const params = parseQueryParams();
-    if (params.theme) {
-      applyWidgetTheme(params.theme);
+    // Read URL query parameters for central configuration system
+    const config: MoodWidgetConfig = parseUrlConfig();
+    const hasUrlParams = window.location.search.length > 1;
+
+    let finalBg = config.bg;
+    let finalCard = config.card;
+    let finalText = config.text;
+
+    // Only fallback to localStorage if NO URL parameters are present at all
+    if (!hasUrlParams) {
+      const savedColors = getStoredCustomColors();
+      if (savedColors) {
+        finalBg = savedColors.bgApp || finalBg;
+        finalCard = savedColors.bgCard || finalCard;
+        finalText = savedColors.textMain || finalText;
+      }
     }
-    if (params.title) {
-      setTitle(params.title);
+
+    const finalConfig: MoodWidgetConfig = {
+      ...config,
+      bg: finalBg,
+      card: finalCard,
+      text: finalText,
+    };
+
+    setWidgetConfig(finalConfig);
+    applyWidgetConfig(finalConfig);
+
+    if (config.title) {
+      setTitle(config.title);
       setSubtitle('');
     }
 
-    // Determine initial colors (URL params priority over localStorage)
-    const initialColors: CustomThemeColors = {
-      bgApp: params.bgApp || savedColors?.bgApp || DEFAULT_COLORS.bgApp,
-      bgCard: params.bgCard || savedColors?.bgCard || DEFAULT_COLORS.bgCard,
-      textMain: params.textMain || savedColors?.textMain || DEFAULT_COLORS.textMain,
-    };
-
-    setColors(initialColors);
-    applyCustomThemeColors(initialColors);
+    setColors({
+      bgApp: finalConfig.bg,
+      bgCard: finalConfig.card,
+      textMain: finalConfig.text,
+    });
   }, []);
 
   const handleSelectMood = (moodId: MoodId) => {
@@ -55,15 +77,36 @@ export const MoodWidget: React.FC = () => {
   };
 
   const handleChangeColor = (key: keyof CustomThemeColors, value: string) => {
-    const updated = { ...colors, [key]: value };
-    setColors(updated);
-    applyCustomThemeColors(updated);
-    saveStoredCustomColors(updated);
+    const updatedColors = { ...colors, [key]: value };
+    setColors(updatedColors);
+
+    const updatedConfig: MoodWidgetConfig = {
+      ...widgetConfig,
+      bg: updatedColors.bgApp,
+      card: updatedColors.bgCard,
+      text: updatedColors.textMain,
+    };
+
+    setWidgetConfig(updatedConfig);
+    applyCustomThemeColors(updatedColors);
+    updateUrlParams(updatedConfig);
+    saveStoredCustomColors(updatedColors);
   };
 
-  const handleSelectPreset = (presetColors: CustomThemeColors) => {
+  const handleSelectPreset = (presetColors: CustomThemeColors, themeId?: ThemePresetId) => {
     setColors(presetColors);
+
+    const updatedConfig: MoodWidgetConfig = {
+      ...widgetConfig,
+      theme: themeId || 'default',
+      bg: presetColors.bgApp,
+      card: presetColors.bgCard,
+      text: presetColors.textMain,
+    };
+
+    setWidgetConfig(updatedConfig);
     applyCustomThemeColors(presetColors);
+    updateUrlParams(updatedConfig);
     saveStoredCustomColors(presetColors);
   };
 

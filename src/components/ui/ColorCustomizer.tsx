@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import type { CustomThemeColors } from '../../types/widget';
+import type { CustomThemeColors, ThemePresetId } from '../../types/widget';
 import { NOTION_LIGHT_PRESETS, NOTION_DARK_PRESETS } from '../../utils/themeUtils';
 import './ColorCustomizer.css';
 
 interface ColorCustomizerProps {
   colors: CustomThemeColors;
   onChangeColor: (key: keyof CustomThemeColors, value: string) => void;
-  onSelectPreset: (preset: CustomThemeColors) => void;
+  onSelectPreset: (colors: CustomThemeColors, themeId?: ThemePresetId) => void;
   onClose: () => void;
 }
 
@@ -61,23 +61,26 @@ export const ColorCustomizer: React.FC<ColorCustomizerProps> = ({
       {activeTab === 'light' && (
         <div className="om-customizer-section">
           <div className="om-preset-grid">
-            {NOTION_LIGHT_PRESETS.map((preset) => (
-              <button
-                key={preset.name}
-                type="button"
-                className="om-preset-swatch"
-                onClick={() => onSelectPreset(preset.colors)}
-                title={`Notion Light ${preset.name}`}
-              >
-                <span
-                  className="om-swatch-bg"
-                  style={{ backgroundColor: preset.colors.bgApp }}
-                />
-                <span className="om-swatch-name" style={{ color: preset.colors.textMain }}>
-                  {preset.name}
-                </span>
-              </button>
-            ))}
+            {NOTION_LIGHT_PRESETS.map((preset) => {
+              const themeId = preset.name.toLowerCase() as ThemePresetId;
+              return (
+                <button
+                  key={preset.name}
+                  type="button"
+                  className="om-preset-swatch"
+                  onClick={() => onSelectPreset(preset.colors, themeId)}
+                  title={`Notion Light ${preset.name}`}
+                >
+                  <span
+                    className="om-swatch-bg"
+                    style={{ backgroundColor: preset.colors.bgApp }}
+                  />
+                  <span className="om-swatch-name" style={{ color: preset.colors.textMain }}>
+                    {preset.name}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

@@ -8,7 +8,7 @@ function copyIndexHtmlPlugin(): Plugin {
   return {
     name: 'copy-index-html',
     closeBundle() {
-      const distDir = path.resolve(__dirname, 'dist');
+      const distDir = path.resolve(import.meta.dirname, 'dist');
       const indexPath = path.join(distDir, 'index.html');
       if (fs.existsSync(indexPath)) {
         // Copy to 404.html for GitHub Pages fallback

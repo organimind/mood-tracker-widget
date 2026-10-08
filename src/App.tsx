@@ -3,18 +3,23 @@ import { MoodWidget } from './widgets/MoodWidget/MoodWidget';
 import { CustomizePage } from './pages/CustomizePage';
 import './App.css';
 
+const checkIsCustomize = () => {
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  return (
+    path.includes('/customize') ||
+    hash.includes('customize') ||
+    search.includes('customize')
+  );
+};
+
 export function App() {
-  const [isCustomize, setIsCustomize] = useState(() => {
-    const path = window.location.pathname.toLowerCase();
-    const hash = window.location.hash.toLowerCase();
-    return path.endsWith('/customize') || hash.includes('customize');
-  });
+  const [isCustomize, setIsCustomize] = useState(checkIsCustomize);
 
   useEffect(() => {
     const handlePopState = () => {
-      const path = window.location.pathname.toLowerCase();
-      const hash = window.location.hash.toLowerCase();
-      setIsCustomize(path.endsWith('/customize') || hash.includes('customize'));
+      setIsCustomize(checkIsCustomize());
     };
 
     window.addEventListener('popstate', handlePopState);

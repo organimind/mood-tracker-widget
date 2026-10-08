@@ -16,7 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .om-mood-widget-brand {
@@ -28,7 +28,7 @@
   letter-spacing: 0.1em;
   font-weight: 600;
   color: var(--om-text-muted);
-  opacity: 0.7;
+  opacity: 0.75;
 }
 
 .om-brand-dot {
@@ -39,23 +39,21 @@
   display: inline-block;
 }
 
-.om-theme-toggle-btn {
-  display: flex;
+.om-settings-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   color: var(--om-text-muted);
-  background-color: transparent;
-  transition: background-color var(--om-transition-fast), color var(--om-transition-fast), transform var(--om-transition-fast);
+  text-decoration: none;
+  cursor: pointer;
 }
 
-.om-theme-toggle-btn:hover {
-  background-color: rgba(140, 134, 128, 0.12);
+.om-settings-btn:hover {
   color: var(--om-text-main);
-  transform: rotate(15deg);
 }
+
 
 .om-mood-widget-subtitle {
   font-family: var(--om-font-serif);

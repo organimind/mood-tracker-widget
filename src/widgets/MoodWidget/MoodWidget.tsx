@@ -7,6 +7,7 @@ import { parseUrlConfig, applyWidgetConfig } from '../../utils/urlConfig';
 import { MOOD_OPTIONS } from './moodConfig';
 import { MoodSelector } from './MoodSelector';
 import { MoodFeedback } from './MoodFeedback';
+import { SettingsIcon } from '../../components/ui/Icons';
 import './MoodWidget.css';
 
 export const MoodWidget: React.FC = () => {
@@ -62,6 +63,11 @@ export const MoodWidget: React.FC = () => {
 
   const selectedConfig = MOOD_OPTIONS.find((m) => m.id === selectedMood) || null;
 
+  // Hide settings icon inside any preview window (iframe) or preview mode
+  const isIframe = typeof window !== 'undefined' && window.self !== window.top;
+  const searchParams = new URLSearchParams(window.location.search);
+  const hideSettings = isIframe || searchParams.get('hideSettings') === 'true' || searchParams.get('preview') === 'true';
+
   return (
     <WidgetCard className="om-mood-widget">
       <header className="om-mood-widget-header">
@@ -70,6 +76,17 @@ export const MoodWidget: React.FC = () => {
             <span className="om-brand-dot" />
             <span className="om-brand-name">OrganiMind</span>
           </div>
+
+          {!hideSettings && (
+            <a
+              href="/mood-tracker-widget/customize"
+              className="om-settings-btn"
+              title="OrganiMind Settings & Customization"
+              aria-label="OrganiMind Settings"
+            >
+              <SettingsIcon size={15} />
+            </a>
+          )}
         </div>
 
         {subtitle && <p className="om-mood-widget-subtitle">{subtitle}</p>}
@@ -87,3 +104,4 @@ export const MoodWidget: React.FC = () => {
   );
 };
 
+export default MoodWidget;

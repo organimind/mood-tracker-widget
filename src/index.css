@@ -39,3 +39,23 @@ button:focus-visible {
   outline: 2px solid var(--om-text-main);
   outline-offset: 2px;
 }
+
+html.customize-mode,
+body.customize-mode {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100% !important;
+  user-select: auto !important;
+}
+
+html.customize-mode #root,
+body.customize-mode #root {
+  display: block !important;
+  height: auto !important;
+  min-height: 100vh !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+

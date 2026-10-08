@@ -10,7 +10,6 @@ import {
   RefreshCw,
   AppWindow,
   HelpCircle,
-  ArrowLeft,
 } from 'lucide-react';
 import {
   type ThemePreset,
@@ -63,12 +62,6 @@ export const CustomizePage: React.FC = () => {
     navigator.clipboard.writeText(widgetUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2200);
-  };
-
-  const handleGoBack = () => {
-    const origin = window.location.origin;
-    const pathname = window.location.pathname.replace(/\/customize\/?$/, '') || '/';
-    window.location.href = `${origin}${pathname}`;
   };
 
   const currentPresetList = activeTab === 'light' ? NOTION_LIGHT_THEMES : NOTION_DARK_THEMES;
